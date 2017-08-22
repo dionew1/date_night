@@ -8,7 +8,7 @@ attr_reader :score, :movie
     @left_node = nil
     @movie = movie_title
     @score = score
-    @depth = depth
+    @depth = 0
   end
 
 
