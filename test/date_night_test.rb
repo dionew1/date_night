@@ -64,12 +64,33 @@ class BinarySearchTreeTest < Minitest::Test
     assert_equal depth4, 2
   end
 
+  def test_include?
+    tree = BinarySearchTree.new
+    refute tree.include?(50)
 
+    tree.insert_node(50, 'The Rescuers')
+    assert tree.include?(50)
+
+    tree.insert_node(76, 'Aladdin')
+    assert tree.include?(76)
+
+    tree.insert_node(25, 'Anastasia')
+    assert tree.include?(25)
+
+    tree.insert_node(33, 'Cars')
+    assert tree.include?(33)
+
+    tree.insert_node(88, "Fantasia")
+    assert tree.include?(88)
+  end
+
+=begin
   def test_depth_of
     tree = BinarySearchTree.new
     tree.insert_node(50, 'The Rescuers')
     depth = tree.depth_of(50)
     assert_equal depth, 0
   end
+=end
 
 end

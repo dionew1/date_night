@@ -3,11 +3,10 @@ require './lib/node'
 
 class BinarySearchTree
 
-  attr_accessor :root, :depth_node
+  attr_accessor :root,
 
   def initialize
     @root = nil
-    @depth_node = 0
   end
 
   def insert_node(score, movie)
@@ -55,13 +54,44 @@ class BinarySearchTree
     end
   end
 
-  def depth_of(score)
-    if 
 
+  def include?(score, current_node = @root)
+    #compare score to current_node
+    if current_node == nil
+      false
+    elsif score == current_node.score
+      true
+    elsif score > current_node.score
+      include?(score, current_node.right_node)      
     else
-      nil
+      include?(score, current_node.left_node)
     end
   end
 
+
+
+  #def depth_of(score)
+#
+  #end
+#
+  #def max
+#
+  #end
+#
+  #def min
+#
+  #end
+#
+  #def sort
+#
+  #end
+#
+  #def load
+#
+  #end
+#
+  #def health
+#
+  #end
 
 end
