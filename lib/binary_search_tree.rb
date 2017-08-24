@@ -1,4 +1,3 @@
-require 'pry'
 require './lib/node'
 
 class BinarySearchTree
@@ -78,23 +77,35 @@ class BinarySearchTree
       current_node.depth
     elsif score > current_node.score
       depth_of(score, current_node.right_node)
-    else score < current_node.score
+    else
       depth_of(score, current_node.left_node)
     end
   end
 
+
+  def max(current_node = @root)
+    if current_node == nil
+      nil
+    elsif current_node.right_node == nil
+      {current_node.movie => current_node.score}
+    else
+      max(current_node.right_node)
+    end
+  end
 #
-  #def max
-#
-  #end
-#
-  #def min
-#
-  #end
-#
-  #def sort
-#
-  #end
+  def min(current_node = @root)
+    if current_node == nil
+      nil
+    elsif current_node.left_node == nil
+      {current_node.movie => current_node.score}
+    else
+      min(current_node.left_node)
+    end
+  end
+
+  def sort(current_node)
+
+  end
 #
   #def load
 #
