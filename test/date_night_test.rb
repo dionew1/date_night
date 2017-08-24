@@ -6,8 +6,6 @@ require './lib/binary_search_tree'
 
 class BinarySearchTreeTest < Minitest::Test
 
-=begin
-
   def test_binary_search_tree_class_exists
     tree = BinarySearchTree.new
 
@@ -177,13 +175,27 @@ class BinarySearchTreeTest < Minitest::Test
 
     assert_equal sorted_array, tree.sort
   end
-=end
 
   def test_load_file
     tree = BinarySearchTree.new
     load_file = tree.load_file("../date_night/lib/movies.txt")
 
     assert_equal 100, load_file
+  end
+
+  def test_health
+    tree = BinarySearchTree.new
+    tree.insert_node(98, "Animals United")
+    tree.insert_node(58, "Armageddon")
+    tree.insert_node(36, "Bill & Ted's Bogus Journey")
+    tree.insert_node(93, "Bill & Ted's Excellent Adventure")
+    tree.insert_node(86, "Charlie's Angels")
+    tree.insert_node(38, "Charlie's Country")
+    tree.insert_node(69, "Collateral Damage")
+
+    assert_equal [[98, 7, 100]], tree.health(0)
+    assert_equal [[58, 6, 85]], tree.health(1)
+    assert_equal [[36, 2, 28], [93, 3, 42]], tree.health(2)
   end
 
 end
