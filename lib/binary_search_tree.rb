@@ -2,16 +2,19 @@ require './lib/node'
 
 class BinarySearchTree
 
-  attr_accessor :root,
+  attr_reader :root
 
   def initialize
     @root = nil
+    @sorted_tree = []
+    @insert_count = 0
   end
 
   def insert_node(score, movie)
   #given score and node should create a node in the tree
     new_node = Node.new(score, movie)
     if root == nil
+      @insert_count += 1
       @root = new_node
       new_node.depth
     else
@@ -36,6 +39,7 @@ class BinarySearchTree
   def create_right_node(given_new_node, current_right_node)
   #given that new node is greater than previous node should position node right
     if current_right_node.right_node == nil
+      @insert_count += 1
       current_right_node.right_node = given_new_node
     else
       # Decide whether to go right or left of the current right node
@@ -46,6 +50,7 @@ class BinarySearchTree
   def create_left_node(received_new_node, current_left_node)
   #given that new node is less than previous node should position node left
     if current_left_node.left_node == nil
+      @insert_count += 1
       current_left_node.left_node = received_new_node
     else
       # Decide whether to go right or left of the current left node
@@ -66,8 +71,6 @@ class BinarySearchTree
       include?(score, current_node.left_node)
     end
   end
-
-
 
   def depth_of(score, current_node = @root)
     #compare score to current_node
@@ -92,7 +95,7 @@ class BinarySearchTree
       max(current_node.right_node)
     end
   end
-#
+
   def min(current_node = @root)
     if current_node == nil
       nil
@@ -103,13 +106,44 @@ class BinarySearchTree
     end
   end
 
-  def sort(current_node)
+  def sort(current_node = @root)
+    if @root == nil
+      return @sorted_tree
+    end
 
+    if current_node.left_node != nil
+      sort(current_node.left_node)
+    end
+
+    @sorted_tree << {current_node.movie => current_node.score}
+
+    if current_node.right_node != nil
+      sort_right(current_node.right_node)
+    end
+    @sorted_tree
   end
-#
-  #def load
-#
-  #end
+
+  def sort_right(current_node = @root.right_node)
+    if current_node.left_node != nil
+      sort(current_node.left_node)
+    end
+    @sorted_tree << {current_node.movie => current_node.score}
+
+    if current_node.right_node != nil
+      sort_right(current_node.right_node)
+    end
+    @sorted_tree
+  end
+
+  def load_file(file)
+    File.open(file).each do |pair|
+      pair_array = pair.split(", ")
+      score = pair_array[0].to_i
+      insert_node(score, pair_array[1])
+    end
+    @insert_count
+  end
+
 #
   #def health
 #

@@ -141,21 +141,49 @@ class BinarySearchTreeTest < Minitest::Test
 
     assert_equal expected_node, tree.min
   end
-=end
+
+  def test_sort_right
+    tree = BinarySearchTree.new
+    tree.insert_node(40, 'Enchanted')
+    tree.insert_node(64, 'Frozen')
+    tree.insert_node(55, 'Cinderella')
+    tree.insert_node(82, 'Cars')
+    tree.insert_node(77, 'Anastasia')
+    tree.insert_node(90, 'The Rescuers')
+    sorted_array =[ {'Cinderella' => 55}, {'Frozen' => 64 },
+    {'Anastasia' => 77}, {'Cars' => 82}, {'The Rescuers' => 90} ]
+
+    assert_equal sorted_array, tree.sort_right
+  end
+
 
   def test_sort
-  tree = BinarySearchTree.new
-  tree.insert_node(50, 'The Rescuers')
-  tree.insert_node(76, 'Aladdin')
-  tree.insert_node(25, 'Anastasia')
-  tree.insert_node(33, 'Cars')
-  tree.insert_node(88, "Fantasia")
-  sorted_array = [ {'Anastasia' => 25}, {'Cars' => 33}{'The Rescuers' => 50},
-  {'Aladdin' => 76}, {'Fantasia' => 88} ]
+    tree = BinarySearchTree.new
+    tree.insert_node(50, 'The Rescuers')
+    tree.insert_node(76, 'Aladdin')
+    tree.insert_node(25, 'Anastasia')
+    tree.insert_node(24, 'Frozen')
+    tree.insert_node(7, 'Enchanted')
+    tree.insert_node(33, 'Chicken Little')
+    tree.insert_node(40, 'Finding Nemo')
+    tree.insert_node(88, "Fantasia")
+    tree.insert_node(90, "Monster's Inc")
+    tree.insert_node(82, 'Cars')
+    tree.insert_node(77, 'Herby')
+    sorted_array = [{"Enchanted"=>7}, {"Frozen"=>24}, {"Anastasia"=>25},
+    {"Chicken Little"=>33}, {"Finding Nemo"=>40}, {"The Rescuers"=>50},
+    {"Aladdin"=>76}, {"Herby"=>77}, {"Cars"=>82}, {"Fantasia"=>88},
+    {"Monster's Inc"=>90} ]
 
-  assert_equal sorted_array, tree.sort
+    assert_equal sorted_array, tree.sort
+  end
+=end
 
+  def test_load_file
+    tree = BinarySearchTree.new
+    load_file = tree.load_file("../date_night/lib/movies.txt")
 
+    assert_equal 100, load_file
   end
 
 end
